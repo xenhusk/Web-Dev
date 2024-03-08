@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    overflow: hidden;
+    background-image: url(lakeside.png);
+    background-size: cover;
+    background-position: center;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: -10;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo{
+    font-size:32px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.navbar a{
+    position: relative;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+}
+
+.navbar a::before{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: .3s;
+}
+
+.navbar a:hover::before{
+    width: 100%;
+}
+.container{
+    margin-top: 25px;
+    padding: 20px;
+}
+
+.container h2{
+    letter-spacing: 1px;
+    font-size: 50px;
+    color: white;
+    padding: 10px;
+    text-transform: uppercase;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 45px;
+    margin-left: 30rem;
+}
+
+.name{
+    color: black;
+}
+
+.blog-post{
+    width: 100%;
+    max-width: 98rem;
+    padding : 5rem;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    margin: 10px;
+}
+
+.blog-post_img{
+    min-width: 35rem;
+    max-width: 35rem;
+    height: 30rem;
+    transform: translateX(-11rem);
+    position: relative;
+    border-radius: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.blog-post_img img {
+    width: 125%;
+    height: 125%;
+    object-fit: cover;
+    display: block;
+    border-radius: 2rem; 
+    transition-property: transform;
+    transition-duration: 0.3s; 
+    transition-timing-function: ease; 
+    border-radius: 2rem;
+    filter: brightness(50%); /* Darken the image by 50% */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.blog-post_img img:hover {
+    transform: scale(1.05); 
+    filter: brightness(100%); /* Restore brightness on hover */
+}
+
+.blog-post_img img::before {
+    content: '';
+    width: 125%;
+    height: 125%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 1rem 1rem 4rem 1px rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+}
+
+.blog-post_date span{
+    display: block;
+    color: #00000080;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: .5rem 0;
+}
+
+.blog-post_text{
+    margin-bottom: 3rem;
+    font-size: 1.4rem;
+    color: #000000b3;
+}
+
+.blog-post_cta{
+    display: inline-block;
+    padding: 1.5rem 3rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color: #ffff;
+    border-radius: 8rem;
+    text-decoration: none;
+    background: linear-gradient(to right, #7b484e 0%, #1e1233  100%);
+    transition-property: transform; 
+    transition-duration: 0.3s; 
+    transition-timing-function: ease; 
+    margin-left: 18rem;
+}
+
+.blog-post_cta:hover{
+    transform: scale(1.05); 
+}
+
+@media screen and (max-width: 1068px) {
+    .blog-post {
+        max-width: 80rem;
+    }
+    .blog-post_img {
+        min-width: 30rem;
+        max-width: 30rem;
+    }
+    .container h2 {
+        margin-top: 120px;
+        margin-left: 275px;
+    }
+}
+
+@media screen and (max-width: 868px) {
+    .blog-post {
+        max-width: 70rem;
+    }
+    .container h2 {
+        margin-top: 20px;
+        margin-left: 142px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .blog-post {
+        padding: 2.5rem;
+        flex-direction: column;
+    }
+    .blog-post_img {
+        min-width: 100%;
+        max-width: 100%;
+        transform: translate(0, -1rem);
+    }
+    .container {
+        margin-top: auto;
+    }
+}
+
+@media screen and (max-width: 823px) {
+    .container h2 {
+        margin-top: 35px;
+        margin-left: 142px;
+    }
+}
+      

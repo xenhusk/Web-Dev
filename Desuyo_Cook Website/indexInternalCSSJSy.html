@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Scrolling Website | Xenhusk</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/987381384949690419/1213159716038123590/XENHUSK.svg?ex=65f47607&is=65e20107&hm=9a9e2e11db992efc020c2799dd0a54256eb098e1b5a482ba803b0c09bd248ae8&" type="SVG">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background: #f9f9f9;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 100px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo{
+    font-size: 2em;
+    color: #359381;
+    pointer-events: none;
+    margin-right: 270px;
+}
+
+.navigation a{
+    text-decoration: none;
+    color: #359381;
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin: 0 10px;
+    font-weight: 600;
+    transition-duration: 0.3s;
+}
+
+.navigation a:hover, 
+.navigation a.active{
+    background-color: #359381;
+    color: #fff;
+}
+
+.parallax{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#text{
+    position: absolute;
+    font-size: 5em;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.parallax img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+.sec{
+    position: relative;
+    background: #003329;
+    padding: 100px;
+    color: #fff;
+}
+
+.sec h2{
+    font-size: 3em;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.sec p{
+    font-size: 1em;
+    color: #fff;
+    font-weight: 300;
+}
+
+.nutritional-table {
+    width: 50%;
+    margin: auto;
+    border-collapse: collapse;
+    border: 2px solid #fff;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.nutritional-table th,
+.nutritional-table td {
+    padding: 8px;
+    border: 2px solid #fff;
+    text-align: left;
+}
+
+.tabletitle {
+    text-align: center;
+}
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">Xenhusk</h2>
+        <nav class="navigation">
+            <a href="#" class="active">Home</a>
+            <a href="#">About</a>
+            <a href="#">Service</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <section class="parallax">
+        <img src="https://media.discordapp.net/attachments/987381384949690419/1213159713458360360/hill1.png?ex=65f47607&is=65e20107&hm=9d7edb247a9782f6f673b8ae9dfa0238e293a148a16142f180943aa73d8916e9&=&format=webp&quality=lossless&width=875&height=492" alt="hill1.png" id="hill1">
+        <img src="https://media.discordapp.net/attachments/987381384949690419/1213159713743831040/hill2.png?ex=65f47607&is=65e20107&hm=faf5f913fb871eb9c1d5f6e1fd6ba4765fca6e4ce5b071ddde2b622693a9445d&=&format=webp&quality=lossless&width=875&height=492" alt="hill2.png" id="hill2">
+        <img src="https://media.discordapp.net/attachments/987381384949690419/1213159714066530345/hill3.png?ex=65f47607&is=65e20107&hm=fd8774803e44bea71a23961105735b6ac1b570e435d175c802ed7e7529b479a0&=&format=webp&quality=lossless&width=875&height=492" alt="hill3.png" id="hill3">
+        <img src="https://media.discordapp.net/attachments/987381384949690419/1213159714377044049/hill4.png?ex=65f47607&is=65e20107&hm=c943d5636a038538e8a2565f6e026d8468805d47d273a0a99a48c56e485e196d&=&format=webp&quality=lossless&width=875&height=492" alt="hill4.png" id="hill4">
+        <img src="https://media.discordapp.net/attachments/987381384949690419/1213159714662260746/hill5.png?ex=65f47607&is=65e20107&hm=ebc49ad57bb55bd95a1b6facba1fcaebf6f73978712bb1052da1cd9039ca2dc7&=&format=webp&quality=lossless&width=875&height=492" alt="hill5.png" id="hill5">\
+        <img src="https://media.discordapp.net/attachments/987381384949690419/1213159715857764402/tree.png?ex=65f47607&is=65e20107&hm=3864aab9c38aed4547559ae47a73c85c14d6aa2953d9d2b9dc48ac19396d1e19&=&format=webp&quality=lossless&width=875&height=492" alt="tree.png" id="tree">
+        <h2 id="text">How to Cook Rice</h2>
+        <img src="https://media.discordapp.net/attachments/987381384949690419/1213159715018645504/leaf.png?ex=65f47607&is=65e20107&hm=13f2b52b2fa64699066ea07a215a6c2842bf45f46e881991d3366b57e23cdddb&=&format=webp&quality=lossless&width=875&height=492" alt="leaf.png" id="leaf">
+        <img src="https://media.discordapp.net/attachments/987381384949690419/1213159715501113475/plant.png?ex=65f47607&is=65e20107&hm=575871e5d4020634d35aeb4127b95ba8d82a8dbb08ae57832708c7502cd5800a&=&format=webp&quality=lossless&width=864&height=492" alt="plant.png" id="plant">
+    </section>
+    <section class="sec">
+        <h2 class="tabletitle">How to Cook Rice</h2>
+        <br><br>
+        <p>
+            Cooking rice is a simple yet essential skill in the kitchen. Here's how to cook perfect rice every time: 
+            <br><br>
+            <h3>Ingredients: </h3>
+            <ul>
+                <li>1 cup of rice (white or brown)</li>
+                <li>1 3/4 cups of water or broth</li>
+                <li>Pinch of salt (optional)</li>
+            </ul>
+            <br>
+            <br>
+            <h3>Instructions:</h3>
+            <br>
+            <ol>
+                <li>Rinse the rice under cold water until the water runs clear. This removes excess starch and helps prevent
+                    the rice from becoming sticky.</li>
+                <li>In a pot, combine the rinsed rice, water or broth, and salt if using. Bring to a boil over high heat.</li>
+                <li>Once boiling, reduce the heat to low and cover the pot with a tight-fitting lid.</li>
+                <li>Simmer the rice for 18-20 minutes for white rice or 30-40 minutes for brown rice.</li>
+                <li>Remove the pot from the heat and let it sit, covered, for 5-10 minutes to allow the rice to steam and
+                    finish cooking.</li>
+                <li>Fluff the rice with a fork before serving.</li>
+            </ol>
+            <br>
+            <p>Enjoy your perfectly cooked rice as a side dish or as a base for your favorite stir-fries and curries!</p>
+        </p>
+        <br><br>
+        <h3 class="tabletitle">Nutritional Information (1 cup cooked):</h3>
+        <br>
+        <table class="nutritional-table">
+            <thead>
+                <tr>
+                    <th>Nutrient</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Calories</td>
+                    <td>205</td>
+                </tr>
+                <tr>
+                    <td>Protein</td>
+                    <td>4.25g</td>
+                </tr>
+                <tr>
+                    <td>Fat</td>
+                    <td>0.44g</td>
+                </tr>
+                <tr>
+                    <td>Carbohydrates</td>
+                    <td>44.51g</td>
+                </tr>
+                <tr>
+                    <td>Fiber</td>
+                    <td>0.6g</td>
+                </tr>
+                <tr>
+                    <td>Sugar</td>
+                    <td>0.05g</td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <h4>Website By: David Paul Desuyo BCCS 2-A</h4>
+    </section>
+    <script>
+        let text = document.getElementById('text');
+let leaf = document.getElementById('leaf');
+let hill1 = document.getElementById('hill1');
+let hill4 = document.getElementById('hill4');
+let hill5 = document.getElementById('hill5');
+
+window.addEventListener('scroll', () => {
+    let value = window.scrollY;
+    let maxScroll = 500;
+    if (value > maxScroll) {
+        value = maxScroll;
+    }
+    text.style.marginTop = value * 2.5 + 'px'
+    leaf.style.top = value * -1.5 + 'px'
+    leaf.style.left = value * 1.5 + 'px'
+    hill5.style.left = value * 1.5 + 'px'
+    hill4.style.left = value * -1.5 + 'px'
+    hill1.style.top = value * 1 + 'px'
+});
+    </script>
+</body>
+
+</html>

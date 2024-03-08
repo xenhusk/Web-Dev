@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My BlogSite</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    overflow: hidden;
+    background-image: url("https://cdn.discordapp.com/attachments/987381384949690419/1211056501410627604/lakeside.png?ex=65eccf42&is=65da5a42&hm=651ba91890f5d2b3c1ba3444417403e05ed88d0a9700c6e08a27cc1b8a6fe51b&");
+    background-size: cover;
+    background-position: center;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: -10;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo{
+    font-size:32px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.navbar a{
+    position: relative;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+}
+
+.navbar a::before{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: .3s;
+}
+
+.navbar a:hover::before{
+    width: 100%;
+}
+.container{
+    margin-top: 0px;
+    padding: 20px;
+}
+
+.container h2{
+    letter-spacing: 1px;
+    font-size: 50px;
+    color: white;
+    padding: 10px;
+    text-transform: uppercase;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 30rem;
+}
+
+span.name {
+    color: black !important;
+}
+
+.blog-post{
+    width: 100%;
+    max-width: 98rem;
+    padding : 5rem;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    margin: 10px;
+}
+
+.blog-post_img{
+    min-width: 35rem;
+    max-width: 35rem;
+    height: 30rem;
+    transform: translateX(-11rem);
+    position: relative;
+    border-radius: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.blog-post_img img {
+    width: 125%;
+    height: 125%;
+    object-fit: cover;
+    display: block;
+    border-radius: 2rem; 
+    transition-property: transform;
+    transition-duration: 0.3s; 
+    transition-timing-function: ease; 
+    border-radius: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.blog-post_img img:hover {
+    transform: scale(1.05); 
+}
+
+.blog-post_img img::before {
+    content: '';
+    width: 125%;
+    height: 125%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 1rem 1rem 4rem 1px rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+}
+
+.blog-post_date span{
+    display: block;
+    color: #00000080;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: .5rem 0;
+}
+
+.blog-post_text{
+    margin-bottom: 3rem;
+    font-size: 1.4rem;
+    color: #000000b3;
+}
+
+.blog-post_cta{
+    display: inline-block;
+    padding: 1.5rem 3rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color: #ffff;
+    border-radius: 8rem;
+    text-decoration: none;
+    background: linear-gradient(to right, #D75d83 0%, #451a3d  100%);
+    transition-property: transform; 
+    transition-duration: 0.3s; 
+    transition-timing-function: ease; 
+    margin-left: 18rem;
+}
+
+.blog-post_cta:hover{
+    transform: scale(1.05); 
+}
+     </style>
+    </head>
+    <body>
+    <header class="header">
+        <a href="#" class="logo">Xenhusk</a>
+        <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Privacy</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+    </nav>
+    </header>
+        </div>
+        <div class="container">
+            <h2>My BlogSite</h2>
+            <div class="blog-post">
+                <div class= "blog-post_img">
+                    <img src="https://cdn.discordapp.com/attachments/987381384949690419/1211058272245649488/IMG_2815.png?ex=65ecd0e8&is=65da5be8&hm=25a03836eb9163cb80cd0d6817cba9ab76d82f7ed625dd05ac5fc534d29b0ef3&" alt="Photo Here">
+                </div>
+                <div class="blog-post_info">
+                    <div class="blog-post_date">
+                        <span class="name">David Paul C. Desuyo BSCS 2-A</span>
+                        <span>Feb 25, 2024</span>
+                    </div>
+                    <h1 class="blog-post_title">CS Elective</h1>
+                    <p class="blog-post_text">
+                            A Computer Science Elective refers to a course or a set of courses within a computer science curriculum that students can choose based on their interests or career goals. These electives typically cover specialized topics within computer science that may not be part of the core curriculum but provide students with opportunities to delve deeper into specific areas of study.
+                        
+                        Examples of computer science electives might include courses in artificial intelligence, machine learning, cybersecurity, database systems, computer graphics, software engineering, bioinformatics, robotics, and more. The specific electives offered can vary depending on the university or educational institution and their faculty expertise.
+                        
+                        Students often choose electives based on their personal interests, career aspirations, or to complement their major coursework. These courses allow students to explore diverse areas of computer science, gain additional skills and knowledge, and tailor their education to match their individual goals and interests.
+                    </p>
+                    <a href="#" class="blog-post_cta">Read More</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
