@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    background: #fff;
+    text-decoration: none;
+    font-size: 1.5em;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    transition: 0.5s;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+    border-radius: 3rem;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+button:hover {
+    background: var(--clr);
+    color: #fff;
+    box-shadow: 0 0 35px var(--clr);
+    background: #6b6b6b;
+}
