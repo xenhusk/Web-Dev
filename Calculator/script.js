@@ -23,8 +23,8 @@ function equals() {
     }
 }function squareRoot() {
     try {
-        var result = Math.sqrt(parseFloat(display.value));
-        var roundedResult = parseFloat(result.toFixed(5));
+        let result = Math.sqrt(parseFloat(display.value));
+        let roundedResult = parseFloat(result.toFixed(5));
         display.value = roundedResult;
     } catch (e) {
         display.value = 'Error';
