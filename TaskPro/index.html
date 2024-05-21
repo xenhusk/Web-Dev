@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="Xenhusk grey.png" type="image">
+    <title>ProTask Xenhusk</title>
+</head>
+<body>
+    <div id="preloader"></div>
+    <div class="background">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.8/build/spline-viewer.js"></script>
+<spline-viewer loading-anim-type="spinner-big-light" url="https://prod.spline.design/yEaT2tiQBEx2VYZi/scene.splinecode"></spline-viewer>
+    <div class="container">
+        <div class="todo-app">
+            <h2>ProTask<img src="Xenhusk grey.png" alt=""></h2>
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Add your Task">
+                <button onclick="addTask()">Add</button>
+            </div>
+            <ul id="list-container">
+                <!-- <li class="checked">Task 1</li>
+                <li>Task 2</li>
+                <li>Task 3</li> -->
+            </ul>
+            <button class="clear-btn" onclick="clearAllTasks()">Clear All</button>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>
