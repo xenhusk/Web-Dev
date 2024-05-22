@@ -1,7 +1,7 @@
 var loader = document.getElementById("preloader");
 
 // Minimum time the preloader should be visible (in milliseconds)
-var minPreloaderTime = 3000;
+var minPreloaderTime = 6000;
 
 window.addEventListener("load", function() {
     // Get the time when the page finished loading
