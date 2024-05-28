@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Sign Up Form -->
+        <form class="signup-form" id="signup-form">
+            <img src="Sentinels-Logo.png" alt="Logo" class="logo">
+            <h2>Sign Up</h2>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <!-- Sign Up and Update buttons -->
+            <button type="submit" id="submit-button">Sign Up</button>
+            <button type="button" id="update-button" class="update-button" style="display: none;">Update</button>
+        </form>
+    </div>
+
+    <!-- Registered Users List -->
+    <div class="users-container">
+        <h2>Registered Users</h2>
+        <ul id="users-list"></ul>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+    apiKey: "AIzaSyCo6ovCbdHjxKOf5oODt085uC4G3u_hCzk",
+    authDomain: "plenary-shade-369503.firebaseapp.com",
+    projectId: "plenary-shade-369503",
+    storageBucket: "plenary-shade-369503.appspot.com",
+    messagingSenderId: "257555094286",
+    appId: "1:257555094286:web:1f370114b741a90886955f",
+    measurementId: "G-SXWFHBT724"
+  };
+
+        // Initialize Firebase and Firestore
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Variable to store the ID of the user being updated
+        let updateUserId = null;
+
+        // Function to fetch users from Firestore and display them
+        async function fetchUsers() {
+            const usersList = document.getElementById('users-list');
+            usersList.innerHTML = '';
+            const querySnapshot = await getDocs(collection(db, "users"));
+            querySnapshot.forEach((doc) => {
+                const user = doc.data();
+                const li = document.createElement('li');
+                li.className = 'user-card';
+
+                const usernameP = document.createElement('p');
+                usernameP.innerHTML = `<strong>Username:</strong> ${user.username}`;
+
+                const emailP = document.createElement('p');
+                emailP.innerHTML = `<strong>Email:</strong> ${user.email}`;
+
+                // Delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('delete-button');
+                deleteButton.onclick = () => deleteUser(doc.id);
+
+                // Update button
+                const updateButton = document.createElement('button');
+                updateButton.textContent = 'Update';
+                updateButton.classList.add('update-button');
+                updateButton.onclick = () => populateForm(doc.id, user);
+
+                li.appendChild(usernameP);
+                li.appendChild(emailP);
+                li.appendChild(deleteButton);
+                li.appendChild(updateButton);
+
+                usersList.appendChild(li);
+            });
+        }
+
+        // Event listener for form submission
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // Check if the form is in update mode or add mode
+            if (updateUserId) {
+                await updateUser(updateUserId, { username, email, password });
+            } else {
+                await addUser({ username, email, password });
+            }
+
+            // Reset the form and fetch the updated user list
+            document.getElementById('signup-form').reset();
+            fetchUsers();
+        });
+
+        // Function to add a new user to Firestore
+        async function addUser(user) {
+            try {
+                await addDoc(collection(db, "users"), user);
+                alert("User registered successfully!");
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                alert("Error adding user: " + e.message);
+            }
+        }
+
+        // Function to update an existing user in Firestore
+        async function updateUser(id, user) {
+            try {
+                const userDoc = doc(db, "users", id);
+                await updateDoc(userDoc, user);
+                alert("User updated successfully!");
+                updateUserId = null;
+                document.getElementById('submit-button').style.display = 'block';
+                document.getElementById('update-button').style.display = 'none';
+            } catch (e) {
+                console.error("Error updating document: ", e);
+                alert("Error updating user: " + e.message);
+            }
+        }
+
+        // Function to delete a user from Firestore
+        window.deleteUser = async function(id) {
+            try {
+                await deleteDoc(doc(db, "users", id));
+                alert("User deleted successfully!");
+                fetchUsers();
+            } catch (e) {
+                console.error("Error deleting document: ", e);
+                alert("Error deleting user: " + e.message);
+            }
+        }
+
+        // Function to populate the form with user details for updating
+        window.populateForm = function(id, user) {
+            document.getElementById('username').value = user.username;
+            document.getElementById('email').value = user.email;
+            document.getElementById('password').value = user.password;
+            document.getElementById('confirm-password').value = user.password;
+            updateUserId = id;
+            document.getElementById('submit-button').style.display = 'none';
+            document.getElementById('update-button').style.display = 'block';
+        }
+
+        // Fetch users on initial load
+        fetchUsers();
+    </script>
+</body>
+</html>
