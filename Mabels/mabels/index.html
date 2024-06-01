@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mabels</title>
+  <!-- Firebase SDKs -->
+  <script defer src="/__/firebase/10.12.2/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/10.12.2/firebase-performance-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="navbar">
+  <header>
+    <h2 class="logo">Mabels</h2>
+    <nav class="navbar">
+        <a href="#">Inventory</a>
+        <a href="pos.html">POS</a>
+        <a href="#">Orders</a>
+    </nav>
+  </header>
+</div>
+<div id="preloader"></div>
+<div class="inventory">
+    <input type="text" id="addItem" placeholder="Add Item">
+    <input type="number" id="price" placeholder="Price" class="no-spinner">
+    <input type="number" id="quantity" placeholder="Quantity">
+    <button id="addButton">Add</button>
+</div>
+<table id="itemTable">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+<script type="module" src="functions.js"></script>
+<script src="script.js" type="module"></script>
+</body>
+</html>

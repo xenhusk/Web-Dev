@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    font-size: 32px;
+    color: #000000;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.navbar a {
+    position: relative;
+    font-size: 18px;
+    color: #000000;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: #000000;
+    border-radius: 5px;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navbar a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Additional styling to ensure content is below the fixed header */
+#preloader, .inventory, .pos-system {
+    margin-top: 80px; /* Adjust this value based on the header height */
+    padding: 20px;
+    width: 100%;
+}
+
+/* Optional: Styling for preloader section */
+#preloader {
+    width: 100%;
+    height: 50px; /* Example height for preloader */
+    background-color: #f3f3f3;
+}
+
+/* Inventory section styling to align input fields and button */
+.inventory {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.inventory input[type="text"],
+.inventory input[type="number"],
+.inventory button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Ensure button does not shrink */
+.inventory button {
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.pos-system {
+    margin-top: 3rem !important;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.products {
+    flex: 1;
+}
+
+.product-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.cart {
+    flex: 1;
+}
+
+.cart table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart th, .cart td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.cart th {
+    background-color: #f3f3f3;
+}
+
+.total {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#checkoutButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Hide increment and decrement buttons in number inputs */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+.no-spinner {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+}
