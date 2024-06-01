@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.cdnfonts.com/css/insaniburger');
 
 *, *::before, *::after {
     margin: 0;
@@ -10,7 +10,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Insaniburger with Cheese', sans-serif;
     font-size: 10px;
     margin: 0;
     padding: 0;
@@ -43,6 +43,7 @@ nav {
     font-weight: 700;
 }
 
+
 .navbar a {
     position: relative;
     font-size: 18px;
@@ -72,8 +73,8 @@ nav {
 }
 
 /* Additional styling to ensure content is below the fixed header */
-#preloader, .inventory, .pos-system {
-    margin-top: 80px; /* Adjust this value based on the header height */
+#preloader, .inventory, .pos-system, .order-management {
+    margin-top: 3rem !important;/* Adjust this value based on the header height */
     padding: 20px;
     width: 100%;
 }
@@ -109,7 +110,6 @@ nav {
 }
 
 .pos-system {
-    margin-top: 3rem !important;
     display: flex;
     gap: 20px;
     flex-direction: row;
@@ -119,6 +119,12 @@ nav {
     margin: 0 auto;
 }
 
+.order-management {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto; /* This centers the div horizontally */
+}
 
 .products {
     flex: 1;

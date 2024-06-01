@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs, updateDoc, doc, getDoc, addDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, updateDoc, doc, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD06oBCeHTLPHaiFhjXkcW2wkYDSeaqeIU",
@@ -22,21 +22,66 @@ let cart = [];
 async function fetchProducts() {
     const productList = document.getElementById("productList");
     const querySnapshot = await getDocs(collection(db, "Menu"));
-    productList.innerHTML = ''; // Clear existing products
+    const products = [];
+
     querySnapshot.forEach((doc) => {
-        const product = doc.data();
+        products.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Sort products alphabetically by item name
+    products.sort((a, b) => a.item.localeCompare(b.item));
+
+    productList.innerHTML = ''; // Clear existing products
+
+    products.forEach((product) => {
         const productItem = document.createElement('div');
         productItem.classList.add('product-item');
         productItem.innerHTML = `
             <strong>${product.item}</strong><br>
             Price: ₱${product.price}.00<br>
-            <button onclick="addToCart('${doc.id}', '${product.item}', ${product.price})">Add to Cart</button>
+            <button onclick="addToCart('${product.id}', '${product.item}', ${product.price})">Add to Cart</button>
         `;
         productList.appendChild(productItem);
     });
 }
 
 fetchProducts();
+
+document.getElementById('searchBar').addEventListener('input', function (event) {
+    const searchQuery = event.target.value.toLowerCase();
+    filterProducts(searchQuery);
+});
+
+async function filterProducts(query) {
+    const productList = document.getElementById("productList");
+    const querySnapshot = await getDocs(collection(db, "Menu"));
+    const products = [];
+
+    querySnapshot.forEach((doc) => {
+        products.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Sort products alphabetically by item name
+    products.sort((a, b) => a.item.localeCompare(b.item));
+
+    // Filter products based on the search query
+    const filteredProducts = products.filter(product =>
+        product.item.toLowerCase().includes(query)
+    );
+
+    productList.innerHTML = ''; // Clear existing products
+
+    filteredProducts.forEach((product) => {
+        const productItem = document.createElement('div');
+        productItem.classList.add('product-item');
+        productItem.innerHTML = `
+            <strong>${product.item}</strong><br>
+            Price: ₱${product.price}.00<br>
+            <button onclick="addToCart('${product.id}', '${product.item}', ${product.price})">Add to Cart</button>
+        `;
+        productList.appendChild(productItem);
+    });
+}
 
 window.addToCart = function(id, item, price) {
     const cartItem = cart.find(i => i.id === id);
@@ -52,10 +97,21 @@ function updateCart() {
     const cartTableBody = document.querySelector("#cartTable tbody");
     cartTableBody.innerHTML = ''; // Clear existing cart items
     let total = 0;
+    const applyDiscount = document.getElementById('applyDiscount').checked; // Check if discount should be applied
 
     cart.forEach(cartItem => {
         const row = document.createElement('tr');
-        const itemTotal = cartItem.price * cartItem.quantity;
+        let itemTotal = cartItem.price * cartItem.quantity;
+
+        // Apply discount if checkbox is checked
+        if (applyDiscount) {
+            const discount = 0.20 * itemTotal; // 20% discount
+            itemTotal -= discount;
+        }
+
+        // Round the item total to the nearest integer value
+        itemTotal = Math.round(itemTotal);
+
         total += itemTotal;
         row.innerHTML = `
             <td>${cartItem.item}</td>
@@ -71,7 +127,9 @@ function updateCart() {
         cartTableBody.appendChild(row);
     });
 
+    const vat = total * 0.12;
     document.getElementById("totalPrice").textContent = total.toFixed(2);
+    document.getElementById("vatAmount").textContent = vat.toFixed(2);
 }
 
 window.updateQuantity = function(id, change) {
@@ -91,12 +149,43 @@ window.removeFromCart = function(id) {
     updateCart();
 };
 
+async function saveTransaction(transactionDetails) {
+    try {
+        // Add a field to indicate if discount was applied
+        const discountApplied = document.getElementById('applyDiscount').checked;
+
+        // Include the discountApplied field in the transactionDetails
+        transactionDetails.discountApplied = discountApplied;
+
+        // Save transaction details to the "Transaction" collection
+        await addDoc(collection(db, "Transaction"), transactionDetails);
+    } catch (error) {
+        console.error("Error saving transaction: ", error);
+        throw error;
+    }
+}
+
+document.getElementById('applyDiscount').addEventListener('change', function() {
+    updateCart(); // Update the cart when the checkbox state changes
+});
+
+// Show or hide the table number input based on the order type
+document.getElementById('orderType').addEventListener('change', function(event) {
+    const orderType = event.target.value;
+    const tableNumberContainer = document.getElementById('tableNumberContainer');
+    if (orderType === 'Dine-in') {
+        tableNumberContainer.style.display = 'block';
+    } else {
+        tableNumberContainer.style.display = 'none';
+    }
+});
+
 document.getElementById("checkoutButton").addEventListener('click', async function() {
     if (cart.length === 0) {
         alert("Cart is empty!");
         return;
     }
-    
+
     const billInput = document.getElementById("billInput");
     const billAmount = parseFloat(billInput.value);
 
@@ -112,12 +201,16 @@ document.getElementById("checkoutButton").addEventListener('click', async functi
         alert("Insufficient bill amount!");
         return;
     }
+
+    const orderType = document.getElementById("orderType").value;
+    const tableNumber = orderType === 'Dine-in' ? document.getElementById("tableNumber").value : "N/A";
+
     try {
         for (const cartItem of cart) {
             const itemDoc = doc(db, "Menu", cartItem.id);
             const itemSnapshot = await getDoc(itemDoc);
             const currentItem = itemSnapshot.data();
-            
+
             if (currentItem.quantity < cartItem.quantity) {
                 throw new Error(`Insufficient quantity for ${currentItem.item}`);
             }
@@ -126,12 +219,15 @@ document.getElementById("checkoutButton").addEventListener('click', async functi
             await updateDoc(itemDoc, { quantity: newQuantity });
         }
 
-        // Save transaction details after updating quantities of all items in the cart
         const transactionDetails = {
             items: cart.map(item => ({ id: item.id, name: item.item, quantity: item.quantity })),
             totalAmount: totalAmount,
+            vat: (totalAmount * 0.12).toFixed(2),
             paymentMethod: "Cash",
-            date: new Date().toISOString()
+            date: new Date().toISOString(),
+            orderType: orderType,
+            tableNumber: tableNumber,
+            status: "Pending"
         };
         await saveTransaction(transactionDetails);
 
@@ -146,13 +242,3 @@ document.getElementById("checkoutButton").addEventListener('click', async functi
         alert("Failed to complete the sale. Please try again.");
     }
 });
-
-async function saveTransaction(transactionDetails) {
-    try {
-        const transactionRef = await addDoc(collection(db, "Transaction"), transactionDetails);
-        console.log("Transaction saved with ID: ", transactionRef.id);
-    } catch (error) {
-        console.error("Error saving transaction: ", error);
-        throw error;
-    }
-}

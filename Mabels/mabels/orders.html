@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Management - Mabels</title>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="navbar">
+    <header>
+      <h2 class="logo">Mabels Orders</h2>
+      <nav class="navbar">
+        <a href="index.html">Inventory</a>
+        <a href="pos.html">POS</a>
+        <a href="orders.html">Orders</a>
+      </nav>
+    </header>
+  </div>
+  <div class="order-management">
+    <table id="orderTable">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Items</th>
+          <th>Total Amount</th>
+          <th>Payment Method</th>
+          <th>Date</th>
+          <th>Table Number</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Order items will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+  <script type="module" src="orders.js"></script>
+</body>
+</html>
