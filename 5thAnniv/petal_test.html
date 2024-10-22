@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petal Test</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden; /* Prevent the scrollbar from appearing */
+            background-color: #f0f0f0;
+            position: relative;
+        }
+
+        /* Petal container styles */
+        .petal {
+            position: absolute;
+            top: -50px;
+            width: 30px;
+            height: 30px;
+            animation: fall 9s linear infinite, sway 3s ease-in-out infinite; /* 9s fall time */
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Petal image element */
+        .petal img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Combined falling, swaying, and fading away near the bottom */
+        @keyframes fall {
+            0% {
+                transform: translate(0, 0) rotate(var(--random-rotation)); /* Start with a random rotation */
+                opacity: 1; /* Fully visible */
+            }
+            50% {
+                transform: translate(20px, 50vh) rotate(calc(var(--random-rotation) + 180deg)); /* Sway and rotate halfway */
+                opacity: 1; /* Stay fully visible */
+            }
+            90% {
+                opacity: 1; /* Still visible near the bottom */
+            }
+            100% {
+                transform: translate(-20px, 100vh) rotate(calc(var(--random-rotation) + 360deg)); /* Sway left and complete full rotation */
+                opacity: 0; /* Fade away near the bottom */
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Maximum number of petals allowed on screen
+        const maxPetals = 30; 
+        const petalsArray = []; // Store the currently active petals
+        const fallDuration = 9000; // 9s fall duration, matching the animation time
+
+        // Function to create a petal element
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+
+            // Add the petal image inside the div
+            const petalImage = document.createElement('img');
+            petalImage.src = 'petal.png'; // Path to your petal image
+            petal.appendChild(petalImage);
+
+            // Random horizontal starting position
+            petal.style.left = `${Math.random() * 100}vw`;
+
+            // Randomize the rotation and set it as a CSS variable for smooth animation
+            const randomRotation = Math.random() * 360; // Random rotation between 0 and 360 degrees
+            petal.style.setProperty('--random-rotation', `${randomRotation}deg`); // Apply random rotation via CSS variable
+
+            document.body.appendChild(petal);
+            petalsArray.push(petal); // Add the petal to the array
+
+            // Remove the petal after it completes its full fall (9s)
+            setTimeout(() => {
+                petal.remove();
+            }, fallDuration); // Sync removal with animation duration
+
+            // Check if the number of petals exceeds the limit
+            if (petalsArray.length > maxPetals) {
+                const oldestPetal = petalsArray.shift(); // Remove the oldest petal
+                oldestPetal.remove(); // Delete the oldest petal from the DOM
+            }
+        }
+
+        // Create multiple petals at an interval
+        setInterval(createPetal, 500); // Adjust interval for how often petals are created
+    </script>
+</body>
+</html>
