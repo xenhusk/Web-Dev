@@ -16,55 +16,57 @@ let isOpen = false;
 
             // Add the petal image inside the div
             const petalImage = document.createElement('img');
-            petalImage.src = 'petal.png'; // Path to your petal image
+            petalImage.src = 'petal.png';
             petal.appendChild(petalImage);
 
-            // Random horizontal starting position
-            petal.style.left = `${Math.random() * 100}vw`;
+            // Random horizontal starting position within 95% of the viewport width to avoid edge overflow
+            const viewportWidth = window.innerWidth;
+            const randomLeft = Math.random() * (viewportWidth * 0.95); // Limit left position to 95% of the screen width
+            petal.style.left = `${randomLeft}px`;
 
             // Randomize the rotation and set it as a CSS variable for smooth animation
-            const randomRotation = Math.random() * 360; // Random rotation between 0 and 360 degrees
-            petal.style.setProperty('--random-rotation', `${randomRotation}deg`); // Apply random rotation via CSS variable
+            const randomRotation = Math.random() * 360;
+            petal.style.setProperty('--random-rotation', `${randomRotation}deg`);
 
             document.body.appendChild(petal);
-            petalsArray.push(petal); // Add the petal to the array
+            petalsArray.push(petal);
 
             // Remove the petal after it completes its full fall (9s)
             setTimeout(() => {
                 petal.remove();
-            }, fallDuration); // Sync removal with animation duration
+            }, fallDuration);
 
             // Check if the number of petals exceeds the limit
             if (petalsArray.length > maxPetals) {
-                const oldestPetal = petalsArray.shift(); // Remove the oldest petal
-                oldestPetal.remove(); // Delete the oldest petal from the DOM
+                const oldestPetal = petalsArray.shift();
+                oldestPetal.remove();
             }
         }
-
         // Create multiple petals at an interval
         setInterval(createPetal, 500); // Adjust interval for how often petals are created
-function openEnvelope(envelope) {
-    if (!isOpen) {
-        isOpen = true;
-
-        // Move envelope down and start letter animation
-        container.classList.add('open');
-        envelope.classList.add('open');
-
-        // Slide the letter up at the same time the envelope moves down
-        setTimeout(() => {
-            letter.classList.add('sliding');
-
-            // After the letter slides up, enlarge it and return the envelope to center
-            setTimeout(() => {
-                container.classList.add('letter-open');
-                letter.classList.add('open');
-                body.classList.add('modal-open');
-                overlay.classList.add('active');
-            }, 800); // Match this with letter sliding duration
-        }, 600); // Match this with envelope movement duration
-    }
-}
+        function openEnvelope(envelope) {
+            if (!isOpen) {
+                isOpen = true;
+        
+                // Move envelope down and start letter animation
+                container.classList.add('open');
+                envelope.classList.add('open');
+        
+                // Slide the letter up at the same time the envelope moves down
+                setTimeout(() => {
+                    letter.classList.add('sliding');
+        
+                    // After the letter slides up, enlarge it and return the envelope to center
+                    setTimeout(() => {
+                        container.classList.add('letter-open');
+                        letter.classList.add('open');
+                        body.classList.add('modal-open');
+                        overlay.classList.add('active');
+                    }, 800); // Match this with letter sliding duration
+                }, 600); // Match this with envelope movement duration
+            }
+        }
+        
 
 // Click outside to close the animation in reverse
 overlay.addEventListener('click', () => {

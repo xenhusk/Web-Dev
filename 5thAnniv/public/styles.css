@@ -1,4 +1,11 @@
 
+
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling on both body and html */
+}
+
 body {
     margin: 0;
     min-height: 100vh;
@@ -7,7 +14,8 @@ body {
     align-items: center;
     background: #ffd1dc;
     font-family: 'Arial', sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
     transition: all 0.5s ease;
 }
 
@@ -87,7 +95,7 @@ body.modal-open {
     background: white;
     padding: 20px;
     box-sizing: border-box;
-    border-radius: 3px;
+    border-radius: 5px;
     transform-origin: bottom;
     transition: none;
     z-index: 10;
@@ -99,9 +107,15 @@ body.modal-open {
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
 }
 
+.letter.closing {
+    transform: translate(-50%, -50%) scale(0.5); /* Shrink smoothly */
+    opacity: 0; /* Fade out */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+}
+
 .letter.sliding {
     opacity: 1;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
     transform: translate(-50%, -200%) scale(0.9);
 }
 
@@ -112,7 +126,7 @@ body.modal-open {
     transform: translate(-50%, -40%) scale(1);
     width: 80vw;
     max-width: 600px;
-    height: 80vh;
+    height:240%;
     pointer-events: auto;
     overflow: hidden;
 }
@@ -126,6 +140,38 @@ body.modal-open {
     max-height: 100%;
     overflow-y: hidden;
     padding: 20px;
+    border: 2px solid #e0cda9; /* Light gold color for a vintage look */
+    background: rgba(255, 255, 255, 0.9); /* Slight transparency */
+    border-radius: 5px;}
+
+/* Decorative flourish at the bottom */
+.letter-content::before, .letter-content::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('flourish.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.letter-content::before {
+    top: 0;
+    left: 0;
+}
+
+.letter-content::after {
+    bottom: 0;
+    right: 0;
+}
+
+/* Style the text inside the letter */
+.letter-content h1 {
+    font-family: 'Parisienne', cursive;
+    color: #ff4b6e; /* Soft reddish color */
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .letter.open .letter-content {
@@ -151,6 +197,7 @@ body.modal-open {
 
 .overlay.active {
     display: block;
+    top: auto;
 }
 
 h1 {
@@ -184,20 +231,18 @@ p {
         }
 
         /* Combined falling, swaying, and fading away near the bottom */
+        /* Limit petal falling and prevent horizontal overflow */
         @keyframes fall {
             0% {
-                transform: translate(0, 0) rotate(var(--random-rotation)); /* Start with a random rotation */
-                opacity: 1; /* Fully visible */
+                transform: translate(0, 0) rotate(var(--random-rotation)); /* Random rotation */
+                opacity: 1;
             }
             50% {
-                transform: translate(20px, 50vh) rotate(calc(var(--random-rotation) + 180deg)); /* Sway and rotate halfway */
-                opacity: 1; /* Stay fully visible */
-            }
-            90% {
-                opacity: 1; /* Still visible near the bottom */
+                transform: translate(10px, 50vh) rotate(calc(var(--random-rotation) + 180deg)); /* Sway less to prevent overflow */
+                opacity: 1;
             }
             100% {
-                transform: translate(-20px, 100vh) rotate(calc(var(--random-rotation) + 360deg)); /* Sway left and complete full rotation */
-                opacity: 0; /* Fade away near the bottom */
+                transform: translate(-10px, 100vh) rotate(calc(var(--random-rotation) + 360deg));
+                opacity: 0;
             }
         }
