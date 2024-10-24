@@ -1,3 +1,23 @@
+// Hide preloader when page is fully loaded
+window.addEventListener('load', function() {
+    // Simulate a minimum loading time of 1.5 seconds
+    setTimeout(function() {
+        const preloader = document.getElementById('preloader');
+        const mainContent = document.getElementById('main-content');
+        
+        // Add fade-out class to preloader
+        preloader.classList.add('fade-out');
+        
+        // Show main content
+        mainContent.style.display = 'block';
+        
+        // Remove preloader from DOM after animation
+        setTimeout(function() {
+            preloader.style.display = 'none';
+        }, 500);
+    }, 4000);
+});
+
 const body = document.body;
 const container = document.querySelector('.container');
 const letter = document.querySelector('.letter');
@@ -51,22 +71,54 @@ let isOpen = false;
                 // Move envelope down and start letter animation
                 container.classList.add('open');
                 envelope.classList.add('open');
-        
-                // Slide the letter up at the same time the envelope moves down
+                eruptHearts();
                 setTimeout(() => {
                     letter.classList.add('sliding');
-        
-                    // After the letter slides up, enlarge it and return the envelope to center
                     setTimeout(() => {
                         container.classList.add('letter-open');
                         letter.classList.add('open');
                         body.classList.add('modal-open');
                         overlay.classList.add('active');
-                    }, 800); // Match this with letter sliding duration
-                }, 600); // Match this with envelope movement duration
+                        
+                        // Start heart eruption after the letter opens        
+                    }, 800);
+                }, 600);
             }
         }
         
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+        
+            // Add the heart SVG as innerHTML
+            heart.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="30px" height="30px"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+        
+            // Random initial position near the envelope's center
+            const randomOffsetX = (Math.random() - 0.5) * 200;
+            const randomOffsetY = (Math.random() - 0.5) * 100;
+            heart.style.left = `calc(50% + ${randomOffsetX}px)`;
+            heart.style.top = `calc(50% + ${randomOffsetY}px)`;
+        
+            // Append the heart to the body
+            document.body.appendChild(heart);
+        
+            // Randomize heart's flight trajectory (left, right, or straight up)
+            const randomAngle = (Math.random() - 0.5) * 60; // Tilt left or right by up to 30 degrees
+            const randomScale = 0.5 + Math.random() * 1.5; // Random size scaling for variety
+            heart.style.setProperty('--random-angle', `${randomAngle}deg`);
+            heart.style.setProperty('--random-scale', randomScale);
+        
+            // Remove heart after the eruption and settling animation completes
+            setTimeout(() => {
+                heart.remove();
+            }, 4000); // Adjust timing to match eruption and settling duration
+        }
+        
+        function eruptHearts() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createHeart, i * 100); // Stagger heart creation for eruption effect
+            }
+        }        
 
 // Click outside to close the animation in reverse
 overlay.addEventListener('click', () => {

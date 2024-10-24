@@ -1,32 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Rumaysa</title>
-    <link rel="icon" href="Colored Xenhusk (Medium).png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>To Rumaysa</title>
+        <link rel="icon" href="Colored Xenhusk (Medium).png" type="image/png">
+        <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles.css">
+    </head>
 <body>
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="envelope" onclick="openEnvelope(this)">
-            <div class="envelope-body"></div>
-            <div class="envelope-front"></div>
-            <div class="envelope-flap"></div>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader-container">
+        <div class="preloader">
+            <img src="9024086.png" alt="Loading..." class="preloader-image">
         </div>
-        <div class="letter">
-            <div class="letter-content">
-                <h1>My Dearest Maysa,</h1>
-                <p>Happy 5th Anniversary! These five years with you have been the most beautiful chapters of my life.</p>
-                <p>Every moment we've shared, every laugh, every challenge we've overcome together has made our love stronger.</p>
-                <p>You make my world brighter just by being in it. I love you more with each passing day.</p>
-                <p>Here's to many more years of us!</p>
-                <p>Forever yours,<br>Paul</p>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" style="display: none;">
+        <img src="9001517.png" class="rose" alt="rose">
+
+        <div class="overlay"></div>
+
+        <div class="container">
+            <div class="envelope" onclick="openEnvelope(this)">
+                <div class="envelope-body"></div>
+                <div class="envelope-front"></div>
+                <div class="envelope-flap"></div>
+            </div>
+
+            <div class="letter">
+                <div class="letter-content">
+                    <h1>My Dearest Maysa,</h1>
+                    <p>Happy 5th Anniversary! These five years with you have been the most beautiful chapters of my life.</p>
+                    <p>Every moment we've shared, every laugh, every challenge we've overcome together has made our love stronger.</p>
+                    <p>You make my world brighter just by being in it. I love you more with each passing day.</p>
+                    <p>Here's to many more years of us!</p>
+                    <p>Forever yours,<br>Paul</p>
+                </div>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
